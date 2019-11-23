@@ -1,0 +1,39 @@
+start: 启动Fragment(启动者和被启动者是在同一个栈的)
+start(CycleFragment.newInstance(mNumber + 1));
+
+// 以某种启动模式，启动新的Fragment
+start(SupportFragment fragment, int launchMode)
+
+startWithPop: 启动Fragment，并关闭自己
+startWithPop(CycleFragment.newInstance(mNumber + 1));
+
+startForResult: 启动Fragment，并携带返回值
+startForResult(ModifyDetailFragment.newInstance(mTitle), REQ_MODIFY_FRAGMENT);
+
+
+侧滑返回：
+SwipeBackLayout
+
+栈视图调试工具：
+DebugStackDelegate.showFragmentStackHierarchyView
+
+
+#### 考虑：
+1. start(Frag) 与 getParentFragment.start 区别 ?
+
+2. 为什么要"loadRootFragment"？
+
+3. 什么是 getChildFragmentManager？什么时候用？
+比如 Fragment放ViewPager，ViewPager里面是fragment：
+"mViewPager.setAdapter(new DiscoverFragmentAdapter(getChildFragmentManager()....)"
+
+4. "多模块Activity＋多Fragment是最合适的架构"？
+  一个模块用一个Activity：
+  1、登录注册流程：
+  LoginActivity + 登录Fragment + 注册Fragment + 填写信息Fragment ＋ 忘记密码Fragment
+  2、或者常见的数据展示流程：
+  DataActivity + 数据列表Fragment + 数据详情Fragment ＋ ...
+
+#### 参考：
+Fragment全解析系列（二）：正确的使用姿势：
+https://www.jianshu.com/p/fd71d65f0ec6
