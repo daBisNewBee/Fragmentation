@@ -102,6 +102,21 @@ public class WechatFirstTabFragment extends BaseMainFragment implements SwipeRef
                 // 因为启动的MsgFragment是MainFragment的兄弟Fragment,所以需要MainFragment.start()
 
                 // 也可以像使用getParentFragment()的方式,拿到父Fragment来操作 或者使用 EventBusActivityScope
+                /*
+                * 比较下与直接start的区别？
+                *
+                * 考虑：
+                * 为何不是直接"start"，而要"getParentFragment.start" ?
+                *
+                * 结论：
+                * 1. 调用者的containerId会作为容器id，加载目标Fragment。
+                * 因此，直接start，MsgFragment只会加载到WechatFirstTabFragment的区域，原来的bottombar继续显示，会比较丑陋，逻辑也不符合
+                * 而getParentFragment.start，会加载到MainFragment的区域，即全屏显示
+                *
+                * 2. 逻辑上，一个Fragment会替换另一个Fragment，称为兄弟Fragment。
+                *
+                * 3. start()发生在兄弟Fragment之间
+                * */
               ((MainFragment) getParentFragment()).startBrotherFragment(MsgFragment.newInstance(mAdapter.getMsg(position)));
             }
         });
